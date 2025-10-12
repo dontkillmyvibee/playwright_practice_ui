@@ -23,6 +23,14 @@ class SignInFormComponent(BaseComponent):
         self.sign_in_button = Button(page, '//button[@id="sign-in-submit"]', 'Sign in button')
         self.sign_up_link = Button(page, '//button[@id="go-to-sign-up"]', 'Sign up link')
         self.eye_span = Text(page, '//button[@id="toggle-sign-in-password"]/span', 'Eye span')
+        self.invalid_email_message = Text(
+            page,
+            '//p[text()="Please enter a valid email address."]', 'Invalid email message')
+        self.invalid_password_message = Text(
+            page,
+            '//p[text()="Password must be at least 8 characters."]',
+            'Invalid password message'
+        )
 
     def check_eye_off(self):
         self.eye_span.check_have_text('Hide password')
@@ -51,6 +59,8 @@ class SignInFormComponent(BaseComponent):
         self.password_input.fill(password)
 
     def fill_form_eye_toggle_off(self, email: str, password: str):
+        self.check_eye_on()
+        self.off_eye_toggle()
         self.check_eye_off()
         self.email_input.fill(email)
         self.password_input.fill(password)
@@ -68,5 +78,17 @@ class SignInFormComponent(BaseComponent):
         self.eye_toggle.click()
         self.check_eye_off()
 
-    def click_sign_up_link(self):  # доработать чек того что мы попали на страничку
+    def click_sign_up_link(self):
         self.sign_up_link.click()
+
+    def check_invalid_email_message(self):
+        self.invalid_email_message.check_visible()
+        self.invalid_email_message.check_have_text('Please enter a valid email address.')
+
+    def check_invalid_password_message(self):
+        self.invalid_password_message.check_visible()
+        self.invalid_password_message.check_have_text('Password must be at least 8 characters.')
+
+    def check_fill(self, email: str, password: str):
+        self.email_input.check_have_value(email)
+        self.password_input.check_have_value(password)
