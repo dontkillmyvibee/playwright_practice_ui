@@ -1,3 +1,4 @@
+import allure
 from playwright.sync_api import Page
 
 from components.base_component import BaseComponent
@@ -55,7 +56,7 @@ class SignUpFormComponent(BaseComponent):
             '//p[@id="«r3a»-form-item-description"]',
             'Password requirements'
         )
-
+    @allure.step('Checking visible elements')
     def check_visible(self):
         self.sign_up_title.check_visible()
         self.sign_up_subtitle.check_visible()
@@ -71,22 +72,27 @@ class SignUpFormComponent(BaseComponent):
         self.sign_in_link.check_visible()
         self.password_requirements.check_visible()
 
+    @allure.step('Checking eye toggle off (password field)')
     def check_password_eye_off(self):
         self.password_eye_toggle_span.check_have_text('Show password')
         self.email_input.check_attribute('type', 'password')
 
+    @allure.step('Checking eye toggle on (password field)')
     def check_password_eye_on(self):
         self.password_eye_toggle_span.check_have_text('Hide password')
         self.email_input.check_attribute('type', 'text')
 
+    @allure.step('Checking eye toggle off(confirm password field)')
     def check_confirm_password_eye_off(self):
         self.confirm_password_eye_toggle_span.check_have_text('Show password')
         self.email_input.check_attribute('type', 'password')
 
+    @allure.step('Checking eye toggle on(confirm password field)')
     def check_confirm_password_eye_on(self):
         self.confirm_password_eye_toggle_span.check_have_text('Hide password')
         self.email_input.check_attribute('type', 'text')
 
+    @allure.step('Filling form with eyes toggles on')
     def fill_form_eyes_toggles_on(self, name: str, email: str, password: str):
         self.check_password_eye_on()
         self.check_confirm_password_eye_on()
@@ -95,6 +101,7 @@ class SignUpFormComponent(BaseComponent):
         self.password_input.fill(password)
         self.confirm_password_input.fill(password)
 
+    @allure.step('Filling form with eyes toggles off')
     def fill_form_eyes_toggles_off(self, name: str, email: str, password: str):
         self.check_password_eye_off()
         self.check_confirm_password_eye_off()
@@ -103,21 +110,25 @@ class SignUpFormComponent(BaseComponent):
         self.password_input.fill(password)
         self.confirm_password_input.fill(password)
 
+    @allure.step('On eye toggle(password field)')
     def password_eye_toggle_on(self):
         self.check_password_eye_off()
         self.password_eye_toggle.click()
         self.check_password_eye_on()
 
+    @allure.step('On eye toggle(confirm password field)')
     def confirm_password_eye_toggle_on(self):
         self.check_confirm_password_eye_off()
         self.confirm_password_eye_toggle.click()
         self.check_confirm_password_eye_on()
 
+    @allure.step('Off eye toggle(password field)')
     def password_eye_toggle_off(self):
         self.check_password_eye_on()
         self.password_eye_toggle.click()
         self.check_password_eye_off()
 
+    @allure.step('Off eye toggle(confirm password field)')
     def confirm_password_eye_toggle_off(self):
         self.check_confirm_password_eye_on()
         self.confirm_password_eye_toggle.click()

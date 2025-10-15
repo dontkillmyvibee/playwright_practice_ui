@@ -1,3 +1,4 @@
+import allure
 from playwright.sync_api import Page
 
 from components.auth_components.sign_up_form_component import SignUpFormComponent
@@ -29,6 +30,7 @@ class UserProfileComponent(BaseComponent):
         self.email_title = Text(page,'//span[@id="profile-email"]','Email title')
         self.logout_button = Button(page, '//button[@id="logout-button"]', 'logout button')
 
+    @allure.step('Checking visible elements')
     def check_visible(self):
         self.user_profile_title.check_visible()
         self.user_profile_subtitle.check_visible()
@@ -37,7 +39,13 @@ class UserProfileComponent(BaseComponent):
         self.email_title.check_visible()
         self.logout_button.check_visible()
 
-    def check_titles_and_subtitles_text(self, username: str | None = None, email: str | None = None, is_signed_up: bool = False):
+    @allure.step('Checking titles and subtitles text')
+    def check_titles_and_subtitles_text(
+            self,
+            username: str | None = None,
+            email: str | None = None,
+            is_signed_up: bool = False
+    ):
         self.user_profile_title.check_have_text("User Profile")
         self.user_profile_subtitle.check_have_text("You are currently logged in.")
         self.successful_auth_message.check_have_text("Authentication successful")
