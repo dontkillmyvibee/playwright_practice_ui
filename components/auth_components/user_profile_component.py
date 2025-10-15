@@ -1,7 +1,6 @@
 import allure
 from playwright.sync_api import Page
 
-from components.auth_components.sign_up_form_component import SignUpFormComponent
 from components.base_component import BaseComponent
 from elements.button import Button
 from elements.text import Text
@@ -56,6 +55,7 @@ class UserProfileComponent(BaseComponent):
             self.username_title.check_have_text("Test User")
             self.email_title.check_have_text(email)
 
+    @allure.step('Checking logout button enabled')
     def check_logout_button_enabled(self):
         self.logout_button.check_enabled()
 

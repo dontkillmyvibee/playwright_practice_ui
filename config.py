@@ -10,6 +10,10 @@ class Browser(StrEnum):
     WEBKIT = 'webkit'
     FIREFOX = 'firefox'
 
+class TestInvalidUser(BaseModel):
+    email: str
+    password: str
+
 class TestUser(BaseModel):
     email: EmailStr
     username: str
@@ -26,6 +30,7 @@ class Settings(BaseSettings):
     headless: bool
     browsers: list[Browser]
     test_user: TestUser
+    test_invalid_user: TestInvalidUser
     videos_dir: DirectoryPath
     tracing_dir: DirectoryPath
     allure_results_dir: DirectoryPath

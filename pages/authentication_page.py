@@ -1,3 +1,5 @@
+import allure
+
 from components.auth_components.sign_in_form_component import SignInFormComponent
 from components.auth_components.sign_up_form_component import SignUpFormComponent
 from components.auth_components.user_profile_component import UserProfileComponent
@@ -20,8 +22,18 @@ class AuthenticationPage(BasePage):
         self.sign_in_tab = Button(page, '//button[@id="sign-in-tab"]', 'Sign in tab')
         self.sign_up_tab = Button(page, '//button[@id="sign-up-tab"]', 'Sign up tab')
 
+    @allure.step('Checking sign in tab is active')
     def is_active_sign_in_tab(self):
         self.sign_in_tab.check_attribute('data-state', 'active')
 
+    @allure.step('Checking sign up tab is active')
     def is_active_sign_up_tab(self):
         self.sign_up_tab.check_attribute('data-state', 'active')
+
+    @allure.step('Going to sign in form')
+    def go_to_sign_in_tab(self):
+        self.sign_in_tab.click()
+
+    @allure.step('Going to sign up form')
+    def go_to_sign_up_tab(self):
+        self.sign_up_tab.click()
